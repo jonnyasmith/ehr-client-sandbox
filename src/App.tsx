@@ -1,19 +1,25 @@
-import * as React from 'react'
+import React from 'react'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import './styles.css'
-import { Card, CardHeader, CardBody } from '@ltht-react/card'
-import { Container, Column } from './components/Page'
 
-export default function App() {
+import HomePage from './components/HomePage'
+import NotFound from './components/NotFound'
+
+const App: React.FC = () => {
   return (
-    <Container>
-      <Column>
-        <Card>
-          <CardHeader>
-            <h3>Hello</h3>
-          </CardHeader>
-          <CardBody>World</CardBody>
-        </Card>
-      </Column>
-    </Container>
+    <Router>
+      <>
+        <Switch>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+          <Route path="*">
+            <NotFound />
+          </Route>
+        </Switch>
+      </>
+    </Router>
   )
 }
+
+export default App
