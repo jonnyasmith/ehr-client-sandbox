@@ -19,7 +19,7 @@ const SplitViewPage: React.FC = () => {
 
   const handlePreviewClick = useCallback(() => {
     setPreview(false)
-  }, [setPreview])  
+  }, [setPreview])
 
   return (
     <SplitView>
@@ -31,11 +31,9 @@ const SplitViewPage: React.FC = () => {
         <TaskList onClick={handleTaskClick} />
         <TaskList onClick={handleTaskClick} />
       </MainPane>
-      {preview && (
-        <PreviewPane>
-          <Form onClick={handlePreviewClick} />
-        </PreviewPane>
-      )}
+      <PreviewPane>
+        {preview && <Form onClick={handlePreviewClick} />}
+      </PreviewPane>
     </SplitView>
   )
 }

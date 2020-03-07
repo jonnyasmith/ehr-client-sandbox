@@ -10,7 +10,7 @@ const styles = {
   main: (preview: boolean, width: number) => css`
     flex: 1;
     display: block;
-    ${preview && width < 768 && 'display: none;'}
+    ${preview && width < 1024 && 'display: none;'}
   `,
   preview: () => css`
     flex: 1;
@@ -59,10 +59,14 @@ export const MainPane: React.FC<MainProps> = ({ preview, children }) => {
     return () => window.removeEventListener('resize', debouncedHandleResize)
   })
 
+  console.log(dimensions)
+
   const columnWrapper: any = {}
   const result = []
   const numberOfColumns = Math.floor(
-    (preview ? dimensions.mainWidth || 0 : dimensions.fullWidth) / 368
+    (preview
+      ? dimensions.mainWidth || dimensions.fullWidth
+      : dimensions.fullWidth) / 368
   )
 
   for (let i = 0; i < numberOfColumns; i++) {
