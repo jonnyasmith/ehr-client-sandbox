@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import React from 'react'
-import { css, jsx } from '@emotion/core'
+import React from "react";
+import { css, jsx } from "@emotion/core";
 
 const styles = {
   root: css`
@@ -12,39 +12,47 @@ const styles = {
       padding-top: 5px;
     }
   `,
-  main: css`
-    flex: 1;
-    display: flex;
-    background: blue;
-
-    & > div {
+  main: (preview: boolean) => {
+    return css`
       flex: 1;
-    }
-  `,
+      display: flex;
+      ${preview && "flex-direction: column;"}
+
+      & > div {
+        ${!preview && "flex: 1;"}
+      }
+    `;
+  },
   preview: css`
     flex: 1;
-    background: yellow;
   `
-}
+};
 
 const SplitView: React.FC = ({ children }) => {
-  return <div css={styles.root}>{children}</div>
-}
+  return <div css={styles.root}>{children}</div>;
+};
 
-export const MainPane: React.FC = ({ children }) => {
+export const MainPane: React.FC<MainProps> = ({ preview, children }) => {
   const wrapped = React.Children.map(children, (child, index) => (
     <div key={index}>{child}</div>
-  ))
-  return <section css={styles.main}>{wrapped}</section>
+  ));
+  return <section css={styles.main(preview)}>{wrapped}</section>;
+};
+
+interface MainProps {
+  preview: boolean;
 }
 
 export const PreviewPane: React.FC = ({ children }) => {
-  console.log(children)
+  if (children === false) {
+    return <React.Fragment></React.Fragment>;
+  }
+
   return (
     <section css={styles.preview}>
       <div>{children}</div>
     </section>
-  )
-}
+  );
+};
 
-export default SplitView
+export default SplitView;
