@@ -23,9 +23,9 @@ const SplitViewPage: React.FC = () => {
         <Advice />
         <Advice />
         <Advice />
-        <TaskList onClick={handleTaskClick} />
-        <TaskList onClick={handleTaskClick} />
-        <TaskList onClick={handleTaskClick} />
+        <TaskList onClick={handleTaskClick} itemCount={10} />
+        <TaskList onClick={handleTaskClick} itemCount={25} />
+        <TaskList onClick={handleTaskClick} itemCount={20} />
       </MainPane>
       <PreviewPane>
         {preview && <Form onClick={handlePreviewClick} />}
@@ -114,26 +114,25 @@ const taskStyles = css`
   }
 `
 
-const TaskList: React.FC<TaskProps> = React.memo(({ onClick }) => {
+const TaskList: React.FC<TaskProps> = React.memo(({ onClick, itemCount }) => {
+  var rows = []
+  for (var i = 0; i < itemCount; i++) {
+    rows.push(<TaskListItem key={i} name={`Task ${i}`} onClick={onClick} />)
+  }
   return (
     <Card>
       <CardHeader>
         <h3>Task List</h3>
       </CardHeader>
       <CardBody>
-        <ul css={taskStyles}>
-          <TaskListItem name="Task 1" onClick={onClick} />
-          <TaskListItem name="Task 2" onClick={onClick} />
-          <TaskListItem name="Task 3" onClick={onClick} />
-          <TaskListItem name="Task 4" onClick={onClick} />
-          <TaskListItem name="Task 5" onClick={onClick} />
-        </ul>
+        <ul css={taskStyles}>{rows}</ul>
       </CardBody>
     </Card>
   )
 })
 
 interface TaskProps {
+  itemCount: number
   onClick(item: string): void
 }
 
@@ -148,8 +147,9 @@ const TaskListItem: React.FC<ItemProps> = ({ name, onClick }) => {
   )
 }
 
-interface ItemProps extends TaskProps {
+interface ItemProps {
   name: string
+  onClick(item: string): void
 }
 
 export default SplitViewPage
