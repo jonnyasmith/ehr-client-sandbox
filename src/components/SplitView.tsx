@@ -62,7 +62,6 @@ export const MainPane: React.FC<MainProps> = ({ preview, children }) => {
   }
 
   React.Children.forEach(children, (child, index) => {
-    console.log(index, numberOfColumns)
     const columnIndex = index % numberOfColumns
     columnWrapper[`column${columnIndex}`].push(<div key={index}>{child}</div>)
   })

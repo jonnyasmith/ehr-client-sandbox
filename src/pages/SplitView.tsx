@@ -21,10 +21,10 @@ const SplitViewPage: React.FC = () => {
     <SplitView>
       <MainPane preview={preview}>
         <Advice />
-        {/* <Advice />
+        <Advice />
         <Advice />
         <TaskList onClick={handleTaskClick} />
-        <TaskList onClick={handleTaskClick} /> */}
+        <TaskList onClick={handleTaskClick} />
         <TaskList onClick={handleTaskClick} />
       </MainPane>
       <PreviewPane>
@@ -56,7 +56,7 @@ const Form: React.FC<FormProps> = ({ onClick }) => {
         <div
           id="map-container"
           className="z-depth-1-half map-container"
-          style={{ height: '91vh', position: 'relative' }}
+          style={{ height: '91vh', position: 'relative', overflowY: 'auto' }}
         >
           <iframe
             src="https://en.wikipedia.org/wiki/React_(web_framework)"
