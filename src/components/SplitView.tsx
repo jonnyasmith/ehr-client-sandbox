@@ -49,15 +49,15 @@ export const MainPane: React.FC<MainProps> = ({ preview, children }) => {
 
   const columnWrapper: any = {}
   const result = []
-  const numberOfColumns = Math.floor(
-    (preview ? width / 2 : width) / WIDGET_WIDTH
-  )
+  const numberOfColumns =
+    Math.floor((preview ? width / 2 : width) / WIDGET_WIDTH) || 1
 
   for (let i = 0; i < numberOfColumns; i++) {
     columnWrapper[`column${i}`] = []
   }
 
   React.Children.forEach(children, (child, index) => {
+    console.log(index, numberOfColumns)
     const columnIndex = index % numberOfColumns
     columnWrapper[`column${columnIndex}`].push(<div key={index}>{child}</div>)
   })
