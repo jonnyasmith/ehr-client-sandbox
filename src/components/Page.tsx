@@ -5,9 +5,11 @@ import { TABLET_MEDIA_QUERY } from '@ltht-react/styles'
 
 const styles = {
   container: css`
+    position: relative;
     display: flex;
     flex-direction: column;
     padding: 0.5rem 0 0.5rem 0.5rem;
+    height: 100vh;
 
     & > div:last {
       padding-right: 0;
@@ -20,6 +22,10 @@ const styles = {
   column: css`
     flex: 1;
     padding-right: 0.5rem;
+    height: 100%;
+    max-height: 100%;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
   `
 }
 
