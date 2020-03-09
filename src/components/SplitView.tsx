@@ -49,8 +49,13 @@ export const MainPane: React.FC<MainProps> = ({ preview, children }) => {
 
   const columnWrapper: any = {}
   const result = []
-  const numberOfColumns =
+  const numberOfWidgets = React.Children.count(children)
+  let numberOfColumns =
     Math.floor((preview ? width / 2 : width) / WIDGET_WIDTH) || 1
+
+  if (numberOfWidgets < numberOfColumns) {
+    numberOfColumns = numberOfWidgets
+  }
 
   for (let i = 0; i < numberOfColumns; i++) {
     columnWrapper[`column${i}`] = []

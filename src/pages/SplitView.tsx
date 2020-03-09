@@ -9,13 +9,9 @@ import SplitView, { MainPane, PreviewPane } from '../components/SplitView'
 const SplitViewPage: React.FC = () => {
   const [preview, setPreview] = useState(false)
 
-  const handleTaskClick = useCallback(
-    (name: string) => {
-      console.log('SplitViewPage ', name)
-      setPreview(true)
-    },
-    [setPreview]
-  )
+  const handleTaskClick = useCallback(() => {
+    setPreview(true)
+  }, [setPreview])
 
   const handlePreviewClick = useCallback(() => {
     setPreview(false)
@@ -25,10 +21,10 @@ const SplitViewPage: React.FC = () => {
     <SplitView>
       <MainPane preview={preview}>
         <Advice />
-        <Advice />
+        {/* <Advice />
         <Advice />
         <TaskList onClick={handleTaskClick} />
-        <TaskList onClick={handleTaskClick} />
+        <TaskList onClick={handleTaskClick} /> */}
         <TaskList onClick={handleTaskClick} />
       </MainPane>
       <PreviewPane>
@@ -53,13 +49,17 @@ const Form: React.FC<FormProps> = ({ onClick }) => {
         >
           Close
         </button>
+        <input
+          type="text"
+          style={{ float: 'right', marginRight: '0.5rem', height: '26px' }}
+        />
         <div
           id="map-container"
           className="z-depth-1-half map-container"
           style={{ height: '91vh', position: 'relative' }}
         >
           <iframe
-            src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            src="https://en.wikipedia.org/wiki/React_(web_framework)"
             style={{
               border: '0',
               position: 'absolute',
