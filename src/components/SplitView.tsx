@@ -17,14 +17,15 @@ const styles = {
   `
 }
 
-function debounce(fn: Function, ms: number) {
+const WIDGET_WIDTH = 400
+
+function debounce(callback: Function, duration: number) {
   let timer: ReturnType<typeof setTimeout>
   return () => {
     clearTimeout(timer)
     timer = setTimeout(_ => {
-      // timer = null
-      fn()
-    }, ms)
+      callback()
+    }, duration)
   }
 }
 
@@ -34,39 +35,22 @@ const SplitView: React.FC = ({ children }) => {
 
 export const MainPane: React.FC<MainProps> = ({ preview, children }) => {
   const $el = React.useRef<HTMLElement>(null)
-  const [dimensions, setDimensions] = React.useState({
-    fullWidth: window.innerWidth,
-    mainWidth: $el.current?.clientWidth
-  })
-
-  React.useEffect(() => {
-    setDimensions({
-      fullWidth: window.innerWidth,
-      mainWidth: $el.current?.clientWidth
-    })
-  }, [preview])
+  const [width, setWidth] = React.useState(window.innerWidth)
 
   React.useEffect(() => {
     const debouncedHandleResize = debounce(function handleResize() {
-      setDimensions({
-        fullWidth: window.innerWidth,
-        mainWidth: $el.current?.clientWidth
-      })
-    }, 300)
+      setWidth(window.innerWidth)
+    }, 250)
 
     window.addEventListener('resize', debouncedHandleResize)
 
     return () => window.removeEventListener('resize', debouncedHandleResize)
-  })
-
-  console.log(dimensions)
+  }, [setWidth])
 
   const columnWrapper: any = {}
   const result = []
   const numberOfColumns = Math.floor(
-    (preview
-      ? dimensions.mainWidth || dimensions.fullWidth
-      : dimensions.fullWidth) / 368
+    (preview ? width / 2 : width) / WIDGET_WIDTH
   )
 
   for (let i = 0; i < numberOfColumns; i++) {
@@ -83,7 +67,7 @@ export const MainPane: React.FC<MainProps> = ({ preview, children }) => {
   }
 
   return (
-    <section css={styles.main(preview, dimensions.fullWidth)} ref={$el}>
+    <section css={styles.main(preview, width)} ref={$el}>
       <Container>{result}</Container>
     </section>
   )
