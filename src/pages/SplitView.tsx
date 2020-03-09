@@ -34,6 +34,13 @@ const SplitViewPage: React.FC = () => {
   )
 }
 
+const formStyles = css`
+  height: 91vh;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+`
+
 const Form: React.FC<FormProps> = ({ onClick }) => {
   function handleClick(
     _event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -51,13 +58,13 @@ const Form: React.FC<FormProps> = ({ onClick }) => {
         </button>
         <input
           type="text"
-          style={{ float: 'right', marginRight: '0.5rem', height: '26px' }}
+          style={{
+            float: 'right',
+            marginRight: '0.5rem',
+            height: '26px'
+          }}
         />
-        <div
-          id="map-container"
-          className="z-depth-1-half map-container"
-          style={{ height: '91vh', position: 'relative', overflowY: 'auto' }}
-        >
+        <div id="map-container" css={formStyles}>
           <iframe
             src="https://en.wikipedia.org/wiki/React_(web_framework)"
             style={{
